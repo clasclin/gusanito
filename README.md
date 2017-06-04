@@ -14,3 +14,6 @@ usar solamente html5. Incluí p5.js para que no sea necesario descargar nada, co
 simplemente abrir 'index.html' con el navegador tiene que andar.
 
 ## Estado: [en desarrollo]
+
+El código base junto con la lógica está "inspirado" en:
+[snake_game_p5.js](https://github.com/CodingTrain/Rainbow-Code/tree/master/CodingChallenges/CC_03_Snake_game_p5.js)

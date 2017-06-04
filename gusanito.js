@@ -19,8 +19,8 @@ class Rect {
 
     randLocation() {
         // quiero que la manzana aparezca dentro de los limites de la pantalla
-        this.pos.x = floor(random(width)  - this.size.x);
-        this.pos.y = floor(random(height) - this.size.y);
+        this.pos.x = floor(random(width));
+        this.pos.y = floor(random(height));
     }
 }
     
@@ -28,15 +28,34 @@ class Worm extends Rect {
     constructor(color = 'green') {
         super('green');
         super.randLocation();
-        this.speed = new Vec(1, 0);
+        this.speed   = new Vec(1, 0);
+        this.history = 0;
+        this.tail    = [];
     }
 
     update() {
-        this.pos.x += this.speed.x;
-        this.pos.y += this.speed.y;
+        if (this.history === this.tail.length) {
+            for (var i = 0; i < this.tail.length-1; i++) {
+                this.tail[i] = this.tail[i+1];
+            }
+        }
+        if (this.history >= 1) {
+            this.tail[this.history-1] = new Vec(this.pos.x, this.pos.y);
+        }
 
-        this.pos.x = constrain(this.pos.x, 0, width  - this.size.x);
-        this.pos.y = constrain(this.pos.y, 0, height - this.size.y);
+        this.pos.x += this.speed.x * grid;
+        this.pos.y += this.speed.y * grid;
+
+        this.pos.x = constrain(this.pos.x, 0, width  - grid);
+        this.pos.y = constrain(this.pos.y, 0, height - grid);
+    }
+
+    show() {
+        fill(this.color);
+        for (var i = 0; i < this.tail.length; i++) {
+            rect(this.tail[i].x, this.tail[i].y, this.size.x, this.size.y);
+        }
+        rect(this.pos.x, this.pos.y, this.size.x, this.size.y);
     }
 
     move(x, y) {

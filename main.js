@@ -1,7 +1,9 @@
-var gusanito, manzana;
+var gusanito, manzana, grid;
 
 function setup() {
     createCanvas(600, 400);
+    frameRate(10);
+    grid     = 10;
     gusanito = new Worm;
     manzana  = new Apple;
     console.log(gusanito);
@@ -11,12 +13,12 @@ function setup() {
 function draw() {
     background('black');
     manzana.show();
-    gusanito.show();
     gusanito.update();
+    gusanito.show();
 
     if (gusanito.eat(manzana)) {
         manzana.randLocation();
-        console.log(manzana.pos);
+        gusanito.history++;
     }
 }
 
